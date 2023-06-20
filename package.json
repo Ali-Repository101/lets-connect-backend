@@ -21,6 +21,7 @@
     "http-status-codes": "^2.2.0",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.2.4",
+    "nodemailer": "^6.9.3",
     "nodemon": "^2.0.22",
     "shortid": "^2.2.16",
     "tsconfig.json": "^1.0.11"
@@ -28,6 +29,7 @@
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
     "@types/cors": "^2.8.13",
-    "@types/jsonwebtoken": "^9.0.2"
+    "@types/jsonwebtoken": "^9.0.2",
+    "@types/nodemailer": "^6.4.8"
   }
 }
