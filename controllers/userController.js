@@ -58,9 +58,6 @@ var transporter = nodemailer.createTransport({
 var userController = /** @class */ (function () {
     function userController() {
     }
-    // static secretkey(token: any, secretkey: any): { userId: any; } {
-    //     throw new Error("Method not implemented.");
-    // }
     userController.userRegistration = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
         var _a, name, email, password, password_confirmaton, user, salt, hashPassword, doc, saved_user, jwttoken, error_1;
         return __generator(this, function (_b) {

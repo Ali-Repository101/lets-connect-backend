@@ -7,8 +7,10 @@ var express_1 = __importDefault(require("express"));
 var router = express_1.default.Router();
 var userController_1 = __importDefault(require("../controllers/userController"));
 var auth_middleware_1 = __importDefault(require("../middlewares/auth-middleware"));
+var adminController_1 = __importDefault(require("../controllers/adminController"));
 router.use('/changepassword', auth_middleware_1.default);
 router.use('/loginuser', auth_middleware_1.default);
+router.use('/adminUser', adminController_1.default.adminSignup);
 // Public Routes
 router.post('/register', userController_1.default.userRegistration);
 router.post('/login', userController_1.default.userLogin);
@@ -17,4 +19,5 @@ router.post('/reset-password/:id/:token', userController_1.default.userPasswordR
 // protected routes
 router.post('/changepassword', userController_1.default.changeUserPassword);
 router.get('/loginuser', userController_1.default.loggedUser);
+router.post('/adminUser', adminController_1.default.adminSignup);
 exports.default = router;
