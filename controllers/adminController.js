@@ -39,43 +39,51 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-var User_1 = __importDefault(require("../models/User"));
-var secretkey = "w1efef313efe6f46e65dww";
-var checkUserAuth = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var token, idToken, userID, _a, error_1;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
-            case 0:
-                token = req.headers['authorization'];
-                idToken = token.split(' ')[1];
-                console.log(token);
-                if (!(token && token.startsWith('Bearer'))) return [3 /*break*/, 4];
-                _b.label = 1;
-            case 1:
-                _b.trys.push([1, 3, , 4]);
-                token = token.split(' ')[1];
-                console.log(token);
-                userID = jsonwebtoken_1.default.verify(JSON.parse(idToken), secretkey).userID;
-                console.log("userId", userID);
-                _a = req;
-                return [4 /*yield*/, User_1.default.findById(userID).select('-password')];
-            case 2:
-                _a.user = _b.sent();
-                console.log("requser--", req.user);
-                next();
-                return [3 /*break*/, 4];
-            case 3:
-                error_1 = _b.sent();
-                console.log(error_1);
-                res.status(401).send({ "status": "failed", "message": "Unauthorized User" });
-                return [3 /*break*/, 4];
-            case 4:
-                if (!token) {
-                    res.status(401).send({ "status": "failed", "message": "unauhorized user" });
-                }
-                return [2 /*return*/];
-        }
-    });
-}); };
-exports.default = checkUserAuth;
+var adminSignup_1 = __importDefault(require("../models/adminSignup"));
+var adminController = /** @class */ (function () {
+    function adminController() {
+    }
+    adminController.adminSignup = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+        var _a, companyname, companysize, role, knowLetsConnect, admin, doc, error_1;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0:
+                    _a = req.body, companyname = _a.companyname, companysize = _a.companysize, role = _a.role, knowLetsConnect = _a.knowLetsConnect;
+                    return [4 /*yield*/, adminSignup_1.default.findOne({ companyname: companyname })];
+                case 1:
+                    admin = _b.sent();
+                    if (!admin) return [3 /*break*/, 2];
+                    res.send({ "status": "success", "message": "company mail already exists" });
+                    return [3 /*break*/, 8];
+                case 2:
+                    if (!(companyname && companysize && role && knowLetsConnect)) return [3 /*break*/, 7];
+                    _b.label = 3;
+                case 3:
+                    _b.trys.push([3, 5, , 6]);
+                    doc = new adminSignup_1.default({
+                        companyname: companyname,
+                        companysize: companysize,
+                        role: role,
+                        knowLetsConnect: knowLetsConnect
+                    });
+                    return [4 /*yield*/, doc.save()];
+                case 4:
+                    _b.sent();
+                    res.status(201).send({ "status": "success", "message": "you have successfully " });
+                    return [3 /*break*/, 6];
+                case 5:
+                    error_1 = _b.sent();
+                    res.send({ "status": "failed", "message": "unable to register" });
+                    console.log(error_1);
+                    return [3 /*break*/, 6];
+                case 6: return [3 /*break*/, 8];
+                case 7:
+                    res.send({ "status": "failed", "message": "All Fields are Required" });
+                    _b.label = 8;
+                case 8: return [2 /*return*/];
+            }
+        });
+    }); };
+    return adminController;
+}());
+exports.default = adminController;

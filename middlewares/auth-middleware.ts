@@ -8,7 +8,7 @@ interface JwtPayload {
     userID: string
 }
 const checkUserAuth = async (req: any, res: any, next: () => void) => {
-    let token = req.headers['authorization'].replace(/^JWT\s/, '');
+    let token = req.headers['authorization'];
     let idToken = token.split(' ')[1]
     console.log(token)
     // const { authorization } = req.headers
